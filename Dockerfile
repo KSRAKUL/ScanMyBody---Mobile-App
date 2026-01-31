@@ -21,8 +21,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy backend code
 COPY backend/ ./backend/
 
-# Expose port
-EXPOSE 8000
+# Expose port (Render uses PORT env var)
+EXPOSE 10000
 
-# Run the application
-CMD ["python", "-m", "backend.main"]
+# Run the application with uvicorn directly (reads PORT from env)
+CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
