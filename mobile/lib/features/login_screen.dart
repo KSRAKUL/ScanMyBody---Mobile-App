@@ -126,8 +126,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppColors.primaryBlue.withOpacity(0.3),
-                      AppColors.primaryBlue.withOpacity(0.0),
+                      AppColors.primaryBlue.withValues(alpha: 0.3),
+                      AppColors.primaryBlue.withValues(alpha: 0.0),
                     ],
                   ),
                 ),
@@ -145,8 +145,8 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  AppColors.secondaryTeal.withOpacity(0.2),
-                  AppColors.secondaryTeal.withOpacity(0.0),
+                  AppColors.secondaryTeal.withValues(alpha: 0.2),
+                  AppColors.secondaryTeal.withValues(alpha: 0.0),
                 ],
               ),
             ),
@@ -195,14 +195,14 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
             'AI-Powered Brain Tumor Detection',
             style: GoogleFonts.poppins(
               fontSize: 13,
-              color: Colors.white.withOpacity(0.85),
+              color: Colors.white.withValues(alpha: 0.85),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -236,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
+                  color: Colors.white.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: Colors.white, size: 26),
@@ -282,7 +282,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
             Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: AppColors.primaryBlue.withOpacity(0.1),
+                color: AppColors.primaryBlue.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.arrow_forward_rounded, size: 20),
@@ -296,8 +296,9 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   Widget _buildTermsText() {
     return Text(
       'By continuing, you agree to our Terms & Privacy Policy',
-      style: GoogleFonts.poppins(fontSize: 11, color: Colors.white.withOpacity(0.5)),
+      style: GoogleFonts.poppins(fontSize: 11, color: Colors.white.withValues(alpha: 0.5)),
       textAlign: TextAlign.center,
     );
   }
 }
+

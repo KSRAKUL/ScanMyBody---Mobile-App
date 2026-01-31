@@ -29,3 +29,4 @@ class UserPreferences {
     } catch (_) {}
   }
 }
+

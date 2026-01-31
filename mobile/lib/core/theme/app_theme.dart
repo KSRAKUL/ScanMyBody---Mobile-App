@@ -68,7 +68,7 @@ class AppColors {
 class AppShadows {
   static List<BoxShadow> get small => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.04),
+      color: Colors.black.withValues(alpha: 0.04),
       blurRadius: 8,
       offset: const Offset(0, 2),
     ),
@@ -76,7 +76,7 @@ class AppShadows {
   
   static List<BoxShadow> get medium => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.06),
+      color: Colors.black.withValues(alpha: 0.06),
       blurRadius: 16,
       offset: const Offset(0, 6),
     ),
@@ -84,7 +84,7 @@ class AppShadows {
   
   static List<BoxShadow> get large => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.08),
+      color: Colors.black.withValues(alpha: 0.08),
       blurRadius: 24,
       offset: const Offset(0, 12),
     ),
@@ -92,7 +92,7 @@ class AppShadows {
   
   static List<BoxShadow> get colored => [
     BoxShadow(
-      color: AppColors.primaryBlue.withOpacity(0.3),
+      color: AppColors.primaryBlue.withValues(alpha: 0.3),
       blurRadius: 20,
       offset: const Offset(0, 10),
     ),
@@ -100,7 +100,7 @@ class AppShadows {
   
   static List<BoxShadow> get glow => [
     BoxShadow(
-      color: AppColors.primaryBlue.withOpacity(0.4),
+      color: AppColors.primaryBlue.withValues(alpha: 0.4),
       blurRadius: 30,
       spreadRadius: 2,
     ),
@@ -194,7 +194,7 @@ class AppTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      shadowColor: Colors.black.withOpacity(0.1),
+      shadowColor: Colors.black.withValues(alpha: 0.1),
     ),
     
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -231,7 +231,7 @@ class AppTheme {
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(color: AppColors.textLight.withOpacity(0.3)),
+        borderSide: BorderSide(color: AppColors.textLight.withValues(alpha: 0.3)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
@@ -312,14 +312,15 @@ class AppTheme {
 /// Glassmorphism Decoration
 class GlassDecoration {
   static BoxDecoration get light => BoxDecoration(
-    color: Colors.white.withOpacity(0.15),
+    color: Colors.white.withValues(alpha: 0.15),
     borderRadius: BorderRadius.circular(20),
-    border: Border.all(color: Colors.white.withOpacity(0.2)),
+    border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
   );
   
   static BoxDecoration get dark => BoxDecoration(
-    color: Colors.black.withOpacity(0.1),
+    color: Colors.black.withValues(alpha: 0.1),
     borderRadius: BorderRadius.circular(20),
-    border: Border.all(color: Colors.white.withOpacity(0.1)),
+    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
   );
 }
+

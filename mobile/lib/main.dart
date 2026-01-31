@@ -58,3 +58,4 @@ class _ScanMyBodyAppState extends State<ScanMyBodyApp> {
     );
   }
 }
+

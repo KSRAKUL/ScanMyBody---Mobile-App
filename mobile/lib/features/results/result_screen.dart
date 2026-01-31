@@ -164,13 +164,13 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), boxShadow: AppShadows.medium),
       child: Column(children: [
-        Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle), child: Icon(isHealthy ? Icons.check_circle_rounded : Icons.warning_amber_rounded, color: color, size: 44)),
+        Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: color.withValues(alpha: 0.1), shape: BoxShape.circle), child: Icon(isHealthy ? Icons.check_circle_rounded : Icons.warning_amber_rounded, color: color, size: 44)),
         const SizedBox(height: 20),
         Text('DIAGNOSIS', style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.textLight, letterSpacing: 2)),
         const SizedBox(height: 8),
         Text(type, style: GoogleFonts.poppins(fontSize: 26, fontWeight: FontWeight.bold, color: color), textAlign: TextAlign.center),
         const SizedBox(height: 16),
-        Container(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(20)), child: Text('$risk Risk', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: color))),
+        Container(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)), child: Text('$risk Risk', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: color))),
         const SizedBox(height: 24),
         Container(
           padding: const EdgeInsets.all(16),
@@ -197,7 +197,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), boxShadow: AppShadows.medium),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.medical_information_rounded, color: AppColors.primaryBlue, size: 22)),
+          Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.medical_information_rounded, color: AppColors.primaryBlue, size: 22)),
           const SizedBox(width: 12),
           Expanded(child: Text('MRI Analysis', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600))),
           if (hasHeatmap) _buildToggleBtn(),
@@ -218,7 +218,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
                 ),
                 Positioned(top: 12, right: 12, child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(color: Colors.black.withOpacity(0.7), borderRadius: BorderRadius.circular(12)),
+                  decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(12)),
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                     Container(width: 8, height: 8, decoration: BoxDecoration(color: _showHeatmap && hasHeatmap ? Colors.red : Colors.white, shape: BoxShape.circle)),
                     const SizedBox(width: 6),
@@ -233,7 +233,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(color: AppColors.warning.withOpacity(0.08), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.warning.withOpacity(0.2))),
+            decoration: BoxDecoration(color: AppColors.warning.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.warning.withValues(alpha: 0.2))),
             child: Row(children: [const Icon(Icons.location_on_rounded, color: AppColors.warning, size: 20), const SizedBox(width: 12), Expanded(child: Text(tumorLocation, style: GoogleFonts.poppins(fontSize: 13, color: AppColors.textSecondary, height: 1.4)))]),
           ),
           const SizedBox(height: 12),
@@ -251,7 +251,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
       onTap: () => setState(() => _showHeatmap = !_showHeatmap),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+        decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Icon(_showHeatmap ? Icons.thermostat : Icons.image, size: 16, color: AppColors.primaryBlue),
           const SizedBox(width: 6),
@@ -269,7 +269,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), boxShadow: AppShadows.medium),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.info.withOpacity(0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.psychology_rounded, color: AppColors.info, size: 22)),
+          Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.info.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.psychology_rounded, color: AppColors.info, size: 22)),
           const SizedBox(width: 12),
           Text('AI Explanation', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
         ]),
@@ -284,7 +284,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
   Widget _buildExplanation(String title, String content, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: color.withOpacity(0.05), borderRadius: BorderRadius.circular(16), border: Border.all(color: color.withOpacity(0.1))),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(16), border: Border.all(color: color.withValues(alpha: 0.1))),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [Icon(icon, size: 18, color: color), const SizedBox(width: 8), Text(title, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: color))]),
         const SizedBox(height: 12),
@@ -296,15 +296,15 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
   Widget _buildRecommendationsCard(String tumorType, bool isHealthy) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(gradient: isHealthy ? AppColors.successGradient : LinearGradient(colors: [AppColors.warning, AppColors.danger.withOpacity(0.8)]), borderRadius: BorderRadius.circular(24)),
+      decoration: BoxDecoration(gradient: isHealthy ? AppColors.successGradient : LinearGradient(colors: [AppColors.warning, AppColors.danger.withValues(alpha: 0.8)]), borderRadius: BorderRadius.circular(24)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.lightbulb_outline_rounded, color: Colors.white, size: 22)),
+          Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.lightbulb_outline_rounded, color: Colors.white, size: 22)),
           const SizedBox(width: 12),
           Text('Recommendations', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
         ]),
         const SizedBox(height: 16),
-        Text(isHealthy ? 'Your brain scan appears normal. Continue with regular health checkups.' : 'Please consult a qualified neurologist or oncologist. This AI screening is not a substitute for professional medical advice.', style: GoogleFonts.poppins(fontSize: 14, color: Colors.white.withOpacity(0.95), height: 1.5)),
+        Text(isHealthy ? 'Your brain scan appears normal. Continue with regular health checkups.' : 'Please consult a qualified neurologist or oncologist. This AI screening is not a substitute for professional medical advice.', style: GoogleFonts.poppins(fontSize: 14, color: Colors.white.withValues(alpha: 0.95), height: 1.5)),
       ]),
     );
   }
@@ -433,3 +433,4 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
     return '🧠 BRAIN TUMOR REPORT\n━━━━━━━━━━━━━━━━\n📋 $type\n📊 Confidence: $conf%\n⚠️ Risk: ${c['risk']}\n📍 Location: $loc\n\n${_getDesc(type)}\n\n⚠️ Consult a medical professional.\n\nGenerated by ScanMyBody AI';
   }
 }
+

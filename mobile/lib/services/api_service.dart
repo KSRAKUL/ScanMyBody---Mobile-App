@@ -13,11 +13,11 @@ class ApiResult {
 class ApiService {
   // ============= DEPLOYMENT CONFIGURATION =============
   // 
-  // RENDER CLOUD (Production - works from anywhere)
-  static const String baseUrl = 'https://scanmybody-mobile-app.onrender.com/api/v1';
-  //
   // LOCAL DEVELOPMENT (Testing - requires same WiFi)
-  // static const String baseUrl = 'http://10.193.183.26:8000/api/v1';
+  static const String baseUrl = 'http://10.189.187.26:8000/api/v1';
+  //
+  // RENDER CLOUD (disabled)
+  // static const String baseUrl = 'https://scanmybody-mobile-app.onrender.com/api/v1';
   //
   // =====================================================
 
@@ -61,3 +61,4 @@ class ApiService {
     }
   }
 }
+

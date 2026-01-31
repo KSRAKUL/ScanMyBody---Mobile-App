@@ -91,7 +91,7 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
           onTap: () => Navigator.pop(context),
           child: Container(
             margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(12), boxShadow: isDark ? null : [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)]),
+            decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(12), boxShadow: isDark ? null : [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10)]),
             child: Icon(Icons.arrow_back_ios_new, size: 18, color: textColor),
           ),
         ),
@@ -140,7 +140,7 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
               color: _selectedImage != null ? AppColors.primaryBlue : (isDark ? Colors.white24 : AppColors.textLight.withOpacity(0.2 + (_pulseController.value * 0.1))),
               width: 2,
             ),
-            boxShadow: isDark ? null : [BoxShadow(color: _selectedImage != null ? AppColors.primaryBlue.withOpacity(0.1) : Colors.black.withOpacity(0.03), blurRadius: 20, offset: const Offset(0, 10))],
+            boxShadow: isDark ? null : [BoxShadow(color: _selectedImage != null ? AppColors.primaryBlue.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.03), blurRadius: 20, offset: const Offset(0, 10))],
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(22),
@@ -159,7 +159,7 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
       children: [
         Container(
           width: 100, height: 100,
-          decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.primaryBlue.withOpacity(0.1), AppColors.primaryLight.withOpacity(0.05)]), shape: BoxShape.circle),
+          decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.primaryBlue.withValues(alpha: 0.1), AppColors.primaryLight.withValues(alpha: 0.05)]), shape: BoxShape.circle),
           child: const Icon(Icons.add_photo_alternate_outlined, color: AppColors.primaryBlue, size: 48),
         ),
         const SizedBox(height: 24),
@@ -172,11 +172,11 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
 
   Widget _buildAnalyzingOverlay() {
     return Container(
-      color: Colors.black.withOpacity(0.7),
+      color: Colors.black.withValues(alpha: 0.7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.white.withOpacity(0.1), shape: BoxShape.circle),
+          Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.1), shape: BoxShape.circle),
             child: const Padding(padding: EdgeInsets.all(20), child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))),
           const SizedBox(height: 24),
           Text('Analyzing MRI...', style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),
@@ -200,7 +200,7 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(gradient: AppColors.cardGradient, borderRadius: BorderRadius.circular(18), boxShadow: [BoxShadow(color: AppColors.primaryBlue.withOpacity(0.3), blurRadius: 15, offset: const Offset(0, 8))]),
+        decoration: BoxDecoration(gradient: AppColors.cardGradient, borderRadius: BorderRadius.circular(18), boxShadow: [BoxShadow(color: AppColors.primaryBlue.withValues(alpha: 0.3), blurRadius: 15, offset: const Offset(0, 8))]),
         child: Column(children: [Icon(icon, color: Colors.white, size: 32), const SizedBox(height: 10), Text(label, style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14))]),
       ),
     );
@@ -231,7 +231,7 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
   Widget _buildInfoCard(bool isDark) {
     return Container(
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(isDark ? 0.15 : 0.05), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.primaryBlue.withOpacity(0.1))),
+      decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(isDark ? 0.15 : 0.05), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.primaryBlue.withValues(alpha: 0.1))),
       child: Row(children: [
         const Icon(Icons.info_outline, color: AppColors.primaryBlue, size: 20),
         const SizedBox(width: 10),
@@ -240,3 +240,4 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
     );
   }
 }
+

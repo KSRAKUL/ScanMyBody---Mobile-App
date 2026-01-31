@@ -96,9 +96,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 12),
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: hasTumor ? AppColors.danger.withOpacity(0.1) : AppColors.success.withOpacity(0.1),
+                          color: hasTumor ? AppColors.danger.withValues(alpha: 0.1) : AppColors.success.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: hasTumor ? AppColors.danger.withOpacity(0.3) : AppColors.success.withOpacity(0.3)),
+                          border: Border.all(color: hasTumor ? AppColors.danger.withValues(alpha: 0.3) : AppColors.success.withValues(alpha: 0.3)),
                         ),
                         child: Row(
                           children: [
@@ -198,7 +198,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 24),
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(16)),
+              decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(16)),
               child: Row(
                 children: [
                   const Icon(Icons.email_rounded, color: AppColors.primaryBlue, size: 28),
@@ -282,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _aboutChip(String value, String label, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
           Text(value, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: color)),
@@ -324,10 +324,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // Profile Card
               Container(
                 padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(gradient: AppColors.cardGradient, borderRadius: BorderRadius.circular(24), boxShadow: [BoxShadow(color: AppColors.primaryBlue.withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))]),
+                decoration: BoxDecoration(gradient: AppColors.cardGradient, borderRadius: BorderRadius.circular(24), boxShadow: [BoxShadow(color: AppColors.primaryBlue.withValues(alpha: 0.3), blurRadius: 20, offset: const Offset(0, 10))]),
                 child: Column(
                   children: [
-                    Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), shape: BoxShape.circle), child: const Icon(Icons.person, color: Colors.white, size: 40)),
+                    Container(width: 80, height: 80, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), shape: BoxShape.circle), child: const Icon(Icons.person, color: Colors.white, size: 40)),
                     const SizedBox(height: 16),
                     Text(_userName, style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
                     const SizedBox(height: 4),
@@ -335,7 +335,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 20),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(16)),
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(16)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -378,7 +378,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(16)),
         child: Row(
           children: [
-            Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: AppColors.primaryBlue, size: 22)),
+            Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: AppColors.primaryBlue, size: 22)),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -396,3 +396,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

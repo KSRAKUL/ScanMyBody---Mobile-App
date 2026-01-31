@@ -19,3 +19,4 @@ class ThemeNotifier extends ChangeNotifier {
     notifyListeners();
   }
 }
+

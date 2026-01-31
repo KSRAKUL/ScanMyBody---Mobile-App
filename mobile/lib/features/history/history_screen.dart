@@ -97,7 +97,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(padding: const EdgeInsets.all(32), decoration: BoxDecoration(color: AppColors.primaryBlue.withOpacity(0.1), shape: BoxShape.circle), child: const Icon(Icons.history_rounded, size: 64, color: AppColors.primaryBlue)),
+          Container(padding: const EdgeInsets.all(32), decoration: BoxDecoration(color: AppColors.primaryBlue.withValues(alpha: 0.1), shape: BoxShape.circle), child: const Icon(Icons.history_rounded, size: 64, color: AppColors.primaryBlue)),
           const SizedBox(height: 24),
           Text('No Scans Yet', style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: textColor)),
           const SizedBox(height: 8),
@@ -168,7 +168,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                        decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
                         child: Text(record.tumorType, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: statusColor)),
                       ),
                     ],
@@ -191,7 +191,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget _buildStatChip(IconData icon, String label, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
       child: Row(children: [
         Icon(icon, size: 14, color: color),
         const SizedBox(width: 6),
@@ -200,3 +200,4 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 }
+
