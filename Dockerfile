@@ -1,5 +1,5 @@
-# Use Python slim image
-FROM python:3.11-slim
+# Use Python 3.10 slim image (required for pytorch-grad-cam)
+FROM python:3.10-slim
 
 # Set working directory
 WORKDIR /app
