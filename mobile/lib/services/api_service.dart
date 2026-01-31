@@ -13,13 +13,11 @@ class ApiResult {
 class ApiService {
   // ============= DEPLOYMENT CONFIGURATION =============
   // 
-  // Option 1: RENDER CLOUD (Production - works from anywhere)
-  // Uncomment this line after deploying to Render:
-  // static const String baseUrl = 'https://scanmybody-api.onrender.com/api/v1';
+  // RENDER CLOUD (Production - works from anywhere)
+  static const String baseUrl = 'https://scanmybody-mobile-app.onrender.com/api/v1';
   //
-  // Option 2: LOCAL DEVELOPMENT (Testing - requires same WiFi)
-  // Replace IP with your computer's IP (run 'ipconfig' to find it)
-  static const String baseUrl = 'http://10.193.183.26:8000/api/v1';
+  // LOCAL DEVELOPMENT (Testing - requires same WiFi)
+  // static const String baseUrl = 'http://10.193.183.26:8000/api/v1';
   //
   // =====================================================
 

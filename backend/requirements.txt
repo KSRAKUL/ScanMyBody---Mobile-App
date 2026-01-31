@@ -9,12 +9,12 @@ opencv-python-headless==4.9.0.80
 pillow==10.2.0
 
 # AI/ML - CPU only for Render free tier
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.1.0+cpu
 torchvision==0.16.0+cpu
---extra-index-url https://download.pytorch.org/whl/cpu
 
-# GradCAM Visualization
-pytorch-grad-cam==1.5.0
+# GradCAM Visualization (from GitHub for Python 3.10 compatibility)
+git+https://github.com/jacobgil/pytorch-grad-cam.git
 
 # ONNX Runtime (lighter than full PyTorch)
 onnxruntime==1.16.0
