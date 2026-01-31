@@ -4,10 +4,12 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies (git for pip GitHub installs, libglib for opencv)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     libglib2.0-0 \
+    libgl1 \
+    libglx-mesa0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for caching
