@@ -4,7 +4,7 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (git, libglib for opencv, libgl for OpenGL)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     libglib2.0-0 \
