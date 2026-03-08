@@ -1,4 +1,4 @@
-name: mobile
+name: scanmybody
 description: "Brain Tumor Detection - AI Powered"
 publish_to: 'none'
 version: 1.0.0+1
@@ -23,8 +23,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  min_sdk_android: 21 # flutter_launcher_icons requires this for adaptive icons if used
 
 flutter:
   uses-material-design: true
   assets:
     - assets/models/
+    - assets/icon/

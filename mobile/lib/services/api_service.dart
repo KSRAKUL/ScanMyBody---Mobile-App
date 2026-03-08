@@ -14,10 +14,8 @@ class ApiService {
   // ============= DEPLOYMENT CONFIGURATION =============
   // 
   // LOCAL DEVELOPMENT (Testing - requires same WiFi)
-  static const String baseUrl = 'http://10.189.187.26:8000/api/v1';
-  //
-  // RENDER CLOUD (disabled)
-  // static const String baseUrl = 'https://scanmybody-mobile-app.onrender.com/api/v1';
+  static const String baseUrl = 'http://10.189.187.26:8000/api/v1'; // Update this to your local machine's IP
+  // static const String baseUrl = 'https://scanmybody-api.onrender.com/api/v1'; 
   //
   // =====================================================
 

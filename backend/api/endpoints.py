@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 import cv2
 import numpy as np
 from backend.services.validator import validator
-from backend.services.preprocessing import preprocess_image
+from backend.services.preprocessing import preprocess_for_display
 from backend.services.inference import inference_service
 from backend.services.xai import xai_service
 from backend.services.anatomy import locate_tumor
@@ -25,7 +25,7 @@ async def analyze_mri(file: UploadFile = File(...)):
         original_image = cv2.imdecode(nparr, cv2.IMREAD_UNCHANGED)
         
         # 3. Preprocessing (for display/mask only)
-        processed = preprocess_image(original_image)
+        processed = preprocess_for_display(original_image)
         
         # 4. Inference (uses RAW image - applies its own transforms)
         classification = inference_service.classify_tumor(original_image)

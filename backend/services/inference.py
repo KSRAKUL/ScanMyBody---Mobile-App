@@ -7,6 +7,7 @@ from PIL import Image
 import torch.nn as nn
 import cv2
 from .gradcam_service import initialize_gradcam
+from .preprocessing import preprocess_for_inference, get_inference_transform
 
 class InferenceService:
     def __init__(self):
@@ -18,11 +19,7 @@ class InferenceService:
         self.classes_path = os.path.join(os.path.dirname(__file__), "../models/classes.txt")
         
         # Preprocessing transform (MUST match training exactly)
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ])
+        self.transform = get_inference_transform()
         
         self._load_model()
 
@@ -67,17 +64,8 @@ class InferenceService:
         
         if self.model:
             try:
-                # Convert BGR to RGB
-                if len(raw_image.shape) == 3:
-                    rgb_image = cv2.cvtColor(raw_image, cv2.COLOR_BGR2RGB)
-                else:
-                    rgb_image = cv2.cvtColor(raw_image, cv2.COLOR_GRAY2RGB)
-                
-                # Convert to PIL Image (training uses ImageFolder which returns PIL)
-                pil_image = Image.fromarray(rgb_image)
-                
                 # Apply EXACT same transform as training
-                img_tensor = self.transform(pil_image).unsqueeze(0).to(self.device)
+                img_tensor = preprocess_for_inference(raw_image, self.device)
                 
                 with torch.no_grad():
                     outputs = self.model(img_tensor)
