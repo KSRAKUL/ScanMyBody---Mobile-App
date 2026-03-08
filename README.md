@@ -23,28 +23,32 @@
 </div>
 
 
-
 ## 🔍 Overview
 
 **ScanMyBody** is a full-stack mobile application that brings AI-powered brain tumor detection to any Android or iOS device. The app allows users to upload an MRI scan image directly from their phone, which is then sent to a **cloud-deployed Python/Flask REST API** running a trained deep learning model. Within seconds, the app returns a **diagnosis with confidence score** — classifying the scan as Glioma, Meningioma, Pituitary Tumor, or No Tumor.
 
 The backend leverages the same **Stacked Transfer Learning model** (EfficientNetB0 + MobileNetV3Small + NASNetMobile) trained in the companion research project, containerized with **Docker** and deployed on **Render** for reliable, scalable cloud inference.
 
----
+
 
 ## ✨ Key Features
 
 | Feature | Description |
 |---------|-------------|
-| 📸 **MRI Image Upload** | Upload brain MRI scans directly from camera or gallery |
+| 📸 **MRI Image Upload** | Upload brain MRI scans from Gallery or Camera |
+| 🛡️ **Smart MRI Validation** | Automatically rejects non-MRI images with clear error messages |
 | 🤖 **AI Inference** | Real-time classification via cloud-hosted deep learning model |
 | 🏷️ **4-Class Detection** | Identifies Glioma · Meningioma · No Tumor · Pituitary |
-| 📊 **Confidence Score** | Displays prediction probability for every result |
+| 📊 **Confidence Score** | Visual progress bar showing AI prediction probability |
+| 🌡️ **Grad-CAM Heatmap** | Color-coded attention map (Low → Mild → High → Critical) |
+| 🧠 **AI Explanation** | Tumor description, key characteristics & clinical recommendations |
+| 📋 **Scan History** | Full history of past scans with MRI thumbnails & diagnosis tags |
+| 👤 **User Profile** | Personalized profile with total scan count & settings |
+| 📤 **Share & Export** | Share analysis report via WhatsApp, Gmail, and more |
+| 💾 **Save to Gallery** | Download analysis report with heatmap overlay |
 | ☁️ **Cloud Backend** | Flask REST API deployed on Render — always available |
 | 🐳 **Dockerized** | Fully containerized backend for consistent deployment |
 | 📱 **Cross-Platform** | Single codebase for Android & iOS via Flutter |
-| ⚡ **Fast Response** | Optimized API pipeline for low-latency mobile inference |
-| 🔒 **Clean UI** | Minimal, intuitive interface designed for clinical usability |
 
 ---
 
@@ -56,13 +60,14 @@ The backend leverages the same **Stacked Transfer Learning model** (EfficientNet
 │                                                                 │
 │   📱 MOBILE APP (Flutter/Dart)                                  │
 │   ┌─────────────────────────────────────────────────────────┐  │
-│   │  UI Layer          ViewModel Layer     Service Layer    │  │
-│   │  • Home Screen     • State Mgmt        • API Client     │  │
-│   │  • Scan Screen     • Image Picker      • HTTP Service   │  │
-│   │  • Result Screen   • Result Handler    • Error Handler  │  │
+│   │  UI Layer           ViewModel Layer     Service Layer   │  │
+│   │  • Splash Screen    • State Mgmt        • API Client    │  │
+│   │  • Home Screen      • Image Picker      • HTTP Service  │  │
+│   │  • Scan Screen      • Result Handler    • Error Handler │  │
+│   │  • History Screen   • Profile Manager                   │  │
+│   │  • Profile Screen                                       │  │
 │   └────────────────────────┬────────────────────────────────┘  │
 │                            │ HTTP POST (multipart/form-data)    │
-│                            │ MRI Image → REST API              │
 │                            ▼                                    │
 │   ☁️ CLOUD BACKEND (Render)                                     │
 │   ┌─────────────────────────────────────────────────────────┐  │
@@ -70,9 +75,10 @@ The backend leverages the same **Stacked Transfer Learning model** (EfficientNet
 │   │  ┌───────────────────────────────────────────────────┐  │  │
 │   │  │  Flask REST API                                   │  │  │
 │   │  │  • /predict endpoint                             │  │  │
-│   │  │  • Image preprocessing (224×224 resize)          │  │  │
-│   │  │  • Model inference                               │  │  │
-│   │  │  • JSON response (class + confidence)            │  │  │
+│   │  │  • MRI validation                                │  │  │
+│   │  │  • Image preprocessing (224×224)                 │  │  │
+│   │  │  • Grad-CAM heatmap generation                   │  │  │
+│   │  │  • JSON response (class + confidence + heatmap)  │  │  │
 │   │  └───────────────────────────────────────────────────┘  │  │
 │   │                      │                                   │  │
 │   │  ┌───────────────────▼───────────────────────────────┐  │  │
@@ -81,9 +87,9 @@ The backend leverages the same **Stacked Transfer Learning model** (EfficientNet
 │   │  │  → 4-Class Softmax Output (~87% Val Accuracy)     │  │  │
 │   │  └───────────────────────────────────────────────────┘  │  │
 │   └─────────────────────────────────────────────────────────┘  │
-│                            │                                    │
-│                            ▼ JSON Response                      │
-│   📱 Result displayed on mobile with diagnosis + confidence     │
+│                            │ JSON Response                      │
+│                            ▼                                    │
+│   📱 Diagnosis + Confidence + Heatmap displayed on mobile       │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -110,6 +116,7 @@ The backend leverages the same **Stacked Transfer Learning model** (EfficientNet
 | **API Framework** | Flask |
 | **Deep Learning** | TensorFlow / Keras |
 | **Image Processing** | OpenCV / Pillow |
+| **XAI** | Grad-CAM |
 | **Containerization** | Docker |
 | **Cloud Deployment** | Render |
 | **Model** | Stacked Transfer Learning (EfficientNetB0 + MobileNetV3Small + NASNetMobile) |
@@ -123,31 +130,35 @@ ScanMyBody---Mobile-App/
 │
 ├── 📁 mobile/                         # Flutter mobile application
 │   ├── 📁 lib/
-│   │   ├── 📁 screens/                # App screens
-│   │   │   ├── home_screen.dart       # Landing / welcome screen
-│   │   │   ├── scan_screen.dart       # MRI upload & analysis screen
-│   │   │   └── result_screen.dart     # Diagnosis result display
+│   │   ├── 📁 screens/
+│   │   │   ├── splash_screen.dart      # App entry / onboarding
+│   │   │   ├── home_screen.dart        # Dashboard · Quick Actions · Recent Scans
+│   │   │   ├── scan_screen.dart        # MRI upload · Gallery & Camera
+│   │   │   ├── result_screen.dart      # Diagnosis · Confidence · Heatmap
+│   │   │   ├── history_screen.dart     # Scan history with MRI thumbnails
+│   │   │   └── profile_screen.dart     # User profile · Settings
 │   │   ├── 📁 services/
-│   │   │   └── api_service.dart       # Flask API communication
-│   │   ├── 📁 widgets/                # Reusable UI components
+│   │   │   └── api_service.dart        # Flask API communication
+│   │   ├── 📁 widgets/                 # Reusable UI components
 │   │   ├── 📁 models/
-│   │   │   └── prediction_result.dart # Prediction data model
-│   │   └── main.dart                  # App entry point
-│   ├── 📁 android/                    # Android platform config
-│   ├── 📁 ios/                        # iOS platform config
-│   └── pubspec.yaml                   # Flutter dependencies
+│   │   │   └── prediction_result.dart  # Prediction data model
+│   │   └── main.dart                   # App entry point
+│   ├── 📁 android/                     # Android platform config
+│   ├── 📁 ios/                         # iOS platform config
+│   └── pubspec.yaml                    # Flutter dependencies
 │
-├── 📁 backend/                        # Python Flask API
-│   ├── app.py                         # Flask app & /predict endpoint
-│   ├── model_loader.py                # Model loading & inference logic
-│   ├── preprocessor.py                # Image preprocessing pipeline
-│   ├── requirements.txt               # Python dependencies
-│   └── final_model.keras              # Trained stacked model weights
+├── 📁 backend/                         # Python Flask API
+│   ├── app.py                          # Flask app & /predict endpoint
+│   ├── model_loader.py                 # Model loading & inference
+│   ├── preprocessor.py                 # Image preprocessing pipeline
+│   ├── gradcam.py                      # Grad-CAM heatmap generation
+│   ├── requirements.txt                # Python dependencies
+│   └── final_model.keras               # Trained stacked model weights
 │
-├── 🐳 Dockerfile                      # Docker container configuration
-├── render.yaml                        # Render deployment configuration
+├── 🐳 Dockerfile                       # Docker container configuration
+├── render.yaml                         # Render deployment configuration
 ├── .gitignore
-└── 📄 README.md                       # Project documentation
+└── 📄 README.md                        # Project documentation
 ```
 
 ---
@@ -157,23 +168,16 @@ ScanMyBody---Mobile-App/
 ### Backend Setup
 
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate       # Linux / macOS
 venv\Scripts\activate          # Windows
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Run Flask API locally
 python app.py
-# API will be running at → http://localhost:5000
+# API running at → http://localhost:5000
 ```
 
-**backend/requirements.txt**
+**requirements.txt**
 ```txt
 flask>=2.3.0
 tensorflow>=2.10.0
@@ -184,38 +188,22 @@ Pillow>=9.2.0
 gunicorn>=20.1.0
 ```
 
----
-
 ### Mobile App Setup
 
 ```bash
-# Navigate to mobile directory
 cd mobile
-
-# Install Flutter dependencies
 flutter pub get
-
-# Update the API base URL in lib/services/api_service.dart
+# Set your API URL in lib/services/api_service.dart:
 # const String baseUrl = 'https://your-render-url.onrender.com';
-
-# Run on Android device / emulator
 flutter run
-
-# Build release APK
 flutter build apk --release
 ```
-
----
 
 ### Docker Setup
 
 ```bash
-# Build Docker image
 docker build -t scanmybody-backend .
-
-# Run container locally
 docker run -p 5000:5000 scanmybody-backend
-
 # API available at → http://localhost:5000
 ```
 
@@ -225,25 +213,26 @@ docker run -p 5000:5000 scanmybody-backend
 
 ### `POST /predict`
 
-Accepts an MRI image and returns the AI classification result.
-
 **Request**
 ```
 Content-Type: multipart/form-data
-Body: { "image": <MRI image file> }
+Body: { "image": <brain MRI image file> }
 ```
 
 **Response**
 ```json
 {
-  "diagnosis": "Glioma",
-  "confidence": 87.5,
+  "diagnosis": "Meningioma",
+  "confidence": 100.0,
+  "risk_level": "High Risk",
   "probabilities": {
-    "glioma": 87.5,
-    "meningioma": 7.2,
-    "no_tumor": 3.1,
-    "pituitary": 2.2
+    "glioma": 0.0,
+    "meningioma": 100.0,
+    "no_tumor": 0.0,
+    "pituitary": 0.0
   },
+  "heatmap": "<base64_encoded_heatmap_image>",
+  "tumor_location": "central midline region",
   "status": "success"
 }
 ```
@@ -253,17 +242,15 @@ Body: { "image": <MRI image file> }
 | Code | Meaning |
 |------|---------|
 | `200` | Successful prediction |
-| `400` | Invalid image or missing file |
+| `400` | Invalid or non-MRI image |
 | `500` | Internal server / model error |
 
 ---
 
 ## ☁️ Deployment
 
-The backend is deployed on **Render** using the `render.yaml` configuration file for automatic deployments.
-
 ```yaml
-# render.yaml (simplified)
+# render.yaml
 services:
   - type: web
     name: scanmybody-api
@@ -275,11 +262,11 @@ services:
         value: 5000
 ```
 
-**Deployment Steps:**
+**Steps:**
 1. Push code to GitHub
-2. Connect repository to [Render](https://render.com)
+2. Connect repo to [Render](https://render.com)
 3. Render auto-detects `render.yaml` and deploys the Docker container
-4. Update `baseUrl` in the Flutter app with the live Render URL
+4. Update `baseUrl` in Flutter app with the live Render URL
 5. Build and release the Flutter APK
 
 ---
@@ -287,63 +274,67 @@ services:
 ## 🔬 How It Works
 
 ```
-User opens ScanMyBody app
+User opens ScanMyBody app (Splash Screen)
         │
         ▼
-Selects MRI image from gallery or camera
+Home Dashboard → Tap "Start Scan" or "New Scan"
         │
         ▼
-App sends image to Flask API on Render
-  (POST /predict — multipart/form-data)
+Select MRI from Gallery or Camera
         │
         ▼
-Backend preprocesses image (resize to 224×224, normalize)
+App validates image → Non-MRI rejected with error dialog
         │
         ▼
-Stacked Transfer Learning model runs inference
-  (EfficientNetB0 + MobileNetV3Small + NASNetMobile)
+POST /predict → Flask API on Render (multipart/form-data)
         │
         ▼
-Softmax output → class probabilities
+Backend: Resize 224×224 → Normalize → Model Inference
         │
         ▼
-JSON response returned to mobile app
+Stacked TL Model → 4-Class Softmax probabilities
         │
         ▼
-Result screen displays:
-  ✅ Diagnosis (e.g. Glioma)
-  📊 Confidence Score (e.g. 87.5%)
-  🔬 Class Probabilities
+Grad-CAM heatmap generated (Low→Mild→High→Critical)
+        │
+        ▼
+JSON response → Mobile app
+        │
+        ▼
+Analysis Report Screen:
+  ✅ Diagnosis (e.g. Meningioma)
+  📊 AI Confidence % + progress bar
+  🌡️ Heatmap with tumor location info
+  🧠 AI Explanation + Key Characteristics
+  💡 Clinical Recommendations
+  📤 Share / Save to Gallery
+        │
+        ▼
+Scan saved to History with timestamp & diagnosis tag
 ```
 
 ---
 
 ## 🏷️ Classification Classes
 
-| Class | Description | Severity |
-|-------|-------------|----------|
+| Class | Description | Risk Level |
+|-------|-------------|------------|
 | 🔴 **Glioma** | Malignant tumor from glial cells — most common primary brain tumor in adults | High |
 | 🟡 **Meningioma** | Tumor from the meninges — typically benign, slow-growing | Moderate |
-| 🟢 **No Tumor** | Healthy brain MRI — no tumor detected | None |
+| 🟢 **No Tumor** | Healthy brain MRI — no tumor detected | Low |
 | 🔵 **Pituitary** | Tumor in the pituitary gland — usually non-cancerous | Low–Moderate |
 
 > ⚠️ **Medical Disclaimer:** ScanMyBody is intended for **research and educational purposes only**. It is not a substitute for professional medical diagnosis. Always consult a qualified neurologist or radiologist for clinical decisions.
 
----
-
 
 ## 🔗 Related Project
 
-This mobile app is the deployment companion to the core AI research project:
-
 > **[🧠 Explainable AI for Brain Tumor Classification with Stacked Transfer Learning](https://github.com/KSRAKUL/Explainable-AI-for-Brain-Tumor-classification-with-Stacked-Transfer-Learning)**
-> — Contains the full model training pipeline, SHAP/Grad-CAM XAI analysis, confusion matrix results, and desktop GUI.
+> — Core AI research project with full model training pipeline, SHAP/Grad-CAM XAI analysis, confusion matrix results, and desktop GUI.
 
 ---
 
 ## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
 
 1. **Fork** the repository
 2. **Create** a feature branch: `git checkout -b feature/your-feature`
